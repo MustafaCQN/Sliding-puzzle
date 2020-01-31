@@ -70,9 +70,22 @@ class Board extends Component {
                 tileAreas[prevState.emptyTile] = tileAreas[tileValue]
                 tileAreas[tileValue] = emptyTilePosition
                 return {tileAreas}
-            })
+            },this.checkWiningStatus)
         }
 
+    }
+
+    checkWiningStatus = () =>{
+        let i = 0
+        let tileAreas = this.state.tileAreas
+        let positions = this.state.positions
+        while(i < 9){
+            if(JSON.stringify(tileAreas["t"+(i+1)]) !== JSON.stringify(positions[i])){
+                return
+            }
+            i++
+        }
+        alert("Congratulations!")
     }
 
     shuffle = () =>{
