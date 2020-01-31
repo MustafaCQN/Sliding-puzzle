@@ -8,18 +8,31 @@ class Board extends Component {
     
         this.state = {
             tileAreas: {
-                t1: {top:"0%", left:"0%"},
-                t2: {top:"0%", left:"33%"},
-                t3: {top:"0%", left:"66%"},
-                t4: {top:"33%", left:"0%"},
-                t5: {top:"33%", left:"33%"},
-                t6: {top:"33%", left:"66%"},
-                t7: {top:"66%", left:"0%"},
-                t8: {top:"66%", left:"33%"},
-                t9: {top:"66%", left:"66%"}
+                t1: {},
+                t2: {},
+                t3: {},
+                t4: {},
+                t5: {},
+                t6: {},
+                t7: {},
+                t8: {},
+                t9: {}
             },
-            emptyTile: "t9"
+            positions : [
+                {top:"0%", left:"0%"},
+                {top:"0%", left:"33%"},
+                {top:"0%", left:"66%"},
+                {top:"33%", left:"0%"},
+                {top:"33%", left:"33%"},
+                {top:"33%", left:"66%"},
+                {top:"66%", left:"0%"},
+                {top:"66%", left:"33%"},
+                {top:"66%", left:"66%"}
+            ],
+            emptyTile: "t9",
+            startingOrder: [1, 2, 3, 4, 5, 6, 7, 8, 9].sort(() => Math.random() - 0.5)
         }
+        this.shuffle()
     }
 
     moveTiles = (val) => {
@@ -60,6 +73,18 @@ class Board extends Component {
             })
         }
 
+    }
+
+    shuffle = () =>{
+            let positions = this.state.positions
+            let tileAreas = this.state.tileAreas
+            let emptyTile  = this.state.emptyTile
+            let i = 0
+            while(i < 9){
+                tileAreas["t"+(i+1)] = positions[this.state.startingOrder[i]-1]
+                i++
+            }
+            emptyTile = positions[positions.length-1]
     }
     
     renderTiles(){
